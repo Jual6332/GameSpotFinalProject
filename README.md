@@ -23,5 +23,5 @@ The capstone project will incoporate user interactivity with the web application
 
 ## MVP Stretch Goals
 1. Pop-up Windows
-2. Database Encryption
-3. Differentiate between user and employee
+2. Differentiate between user and employee
+3. Database Encryption to protect against SQL injection
