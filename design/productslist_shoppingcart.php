@@ -7,7 +7,7 @@
         ?>
             <div class="product-item">
                 <form method="post" action="index.php?action=add&sku=<?php echo $product_list[$key]["sku"];?>">
-                <div class="product-image"></div><img src="<?php echo $product_array[$key]["image"]; ?>"></div>
+                <div class="product-image"><img src="<?php echo $product_array[$key]["image"]; ?>"></div>
                 <div class="product-tile-footer">
                 <div class="product-title"></div><?php echo $product_array[$key]["name"]; ?></div>
                 <div class="product-price"></div><?php echo "$".$product_array[$key]["price"]; ?></div>
