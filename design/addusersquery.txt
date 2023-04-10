@@ -1,0 +1,2 @@
+INSERT INTO `users` (`userID`, `firstName`, `lastName`, `userType`, `username`, `password`) VALUES ('1', 'John', 'Smith', 'Manager', 'test', 'test1');
+INSERT INTO `users` (`userID`, `firstName`, `lastName`, `userType`, `username`, `password`) VALUES ('2', 'Emily', 'Johnson', 'Customer', 'emi124', 'deedeekitty');
