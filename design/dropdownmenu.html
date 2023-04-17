@@ -86,6 +86,13 @@
                     <a href="#">Reviews List</a>                    
                 </div>        
             </div>
+            <div class="dropdown">
+                <button class="dropbtn" onclick="showDropDownSocialMediaItems()">Social Media<i class="fa fa-caret-down"></i></button>
+                <div class="dropdown-content" id="mySocialMediaDropdown">
+                    <a href="#">Create a New Post</a>
+                    <a href="#">Social Media Feed</a>                    
+                </div>        
+            </div>
         </div>
         <h3>Products Dropdown Menu inside NavBar</h3>
         <p>Click on the "Dropdown" link to see the dropdown menu.</p>
@@ -95,6 +102,9 @@
             }
             function showDropDownReviewItems() {
                 document.getElementById("myReviewsDropdown").classList.toggle("show");
+            }
+            function showDropDownSocialMediaItems() {
+                document.getElementById("mySocialMediaDropdown").classList.toggle("show");
             }
         </script>
     </body>
