@@ -30,6 +30,11 @@
     }
 ?>
 
+<tr>
+    <td colspan="2" align="right">Total:</td>
+    <td align="right"><?php echo $total_quantity; ?></td>
+    <td align="right" colspan="2"><strong><?php echo "$ ".number_format($total_cost,2); ?></strong></td>
+</tr>
 </tbody>
 </table>
 
