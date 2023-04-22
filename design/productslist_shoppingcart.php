@@ -22,7 +22,9 @@
                 <td><img src="<?php echo $item["image"];?>"/></td> 
                 <td><?php echo $item["code"]; ?></td>
                 <td style="text-align:right;"> <?php echo $item["quantity"]; ?></td>
-                <td style="text-align:right;"> <?php echo $item["price"]; ?></td>
+                <td style="text-align:right;"> <?php echo "$ ".$item["price"]; ?></td>
+                <td style="text-align:right;"><?php echo "$ ".number_format($item_price,2);?></td>
+                <td style="text-align:center;"><a href="index.php?action=remove&code=<?php echo $item["code"]; ?>" class="btnRemoveAction"><img src="images/icon-delet.png" alt="Remove Item"/></a></td>
             </tr>
             <?php
             $total_quantity += $item["quantity"];
