@@ -8,20 +8,30 @@ switch($_GET["action"]) {
 	case "add":
 		if(!empty($_POST["quantity"])) {
 			//$productByCode = $db_handle->runQuery("SELECT * FROM products");
-            $result = mysqli_query($con,"SELECT * FROM products WHERE sku='" . $_GET["sku"] . "'");
+            $result = mysqli_query($con,"SELECT * FROM products");
             if (mysqli_num_rows($result) > 0) {
                 while($row = mysqli_fetch_array($result)) {
-                    foreach($_SESSION["cart_item"] as $k => $v) {
-                        if($row["sku"] == $k) {
-                            if(empty($_SESSION["cart_item"][$k]["quantity"])) {
-                                $_SESSION["cart_item"][$k]["quantity"] = 0;
-                            }
-                            $_SESSION["cart_item"][$k]["quantity"] += $_POST["quantity"];
-                        }
+                    if($row["sku"] == $_GET["sku"]) {
+                        /*if(empty($_SESSION["cart_item"]["quantity"])) {
+                            $_SESSION["cart_item"]["quantity"] = 0;
+                        }*/
+                        $cart_item = [
+                            "name" => $row["price"],
+                            "image" => $row["image"],
+                            "sku" => $row["sku"],
+                            "price" => $row["price"],
+                            "quantity" => $_POST["quantity"],
+                        ];
+                        $_SESSION["cart_item"] = array_merge($_SESSION["cart_item"],$cart_item);
+                        //$_SESSION["cart_item"]["name"] = $row["name"];
+                        //$_SESSION["cart_item"]["image"] = $row["image"];
+                        //$_SESSION["cart_item"]["sku"] = $row["sku"];
+                        //$_SESSION["cart_item"]["price"] = $row["price"];
+                        //$_SESSION["cart_item"]["quantity"] += $_POST["quantity"];
                     }
-
                 }
             }
+        }
             /*
             if (mysqli_num_rows($productByCode) == 0) {
                 echo "There are no products in the database.";
@@ -45,7 +55,6 @@ switch($_GET["action"]) {
                     $_SESSION["cart_item"] = $itemArray;
                 }
             }*/
-		}
 	break;
 	case "remove":
 		if(!empty($_SESSION["cart_item"])) {
@@ -56,9 +65,11 @@ switch($_GET["action"]) {
 						unset($_SESSION["cart_item"]);
 			}
 		}
+        $_SESSION["cart_item"] = [];
 	break;
 	case "empty":
 		unset($_SESSION["cart_item"]);
+        $_SESSION["cart_item"] = [];
 	break;	
 }
 }
@@ -80,7 +91,7 @@ switch($_GET["action"]) {
         <?php
         if(isset($_SESSION["cart_item"])){
                 $total_quantity = 0;
-                $total_price = 0;
+                $total_cost = 0;
         ?>
         <table class="tbl-cart" cellpadding="10" cellspacing="1">
         <tbody>
@@ -93,22 +104,32 @@ switch($_GET["action"]) {
                 <th style="text-align:center" width="5%">Remove</th>
             </tr>
 
-        <?php
-            foreach ($_SESSION["cart_item"] as $item){
-                $cost = $item["quantity"]*$item["price"];
-                ?>
-                    <tr>
-                        <td><img src="<?php echo $item["image"];?>"/></td> 
-                        <td><?php echo $item["sku"]; ?></td>
-                        <td style="text-align:right;"> <?php echo $item["quantity"]; ?></td>
-                        <td style="text-align:right;"> <?php echo "$ ".$item["price"]; ?></td>
-                        <td style="text-align:right;"><?php echo "$ ".number_format($item_price,2);?></td>
-                        <td style="text-align:center;"><a href="productslist_shoppingcart.php?action=remove&sku=<?php echo $item["sku"]; ?>" class="btnRemoveAction"><img src="images/icon-delet.png" alt="Remove Item"/></a></td>
-                    </tr>
+            <!--
+            <tr>
+                <td>
                     <?php
-                    $total_quantity += $item["quantity"];
-                    $total_cost += ($item["quantity"]*$item["price"]);
-            }
+                    /*if ($_SESSION["cart_item"] != NULL){
+                        echo $_SESSION["cart_item"]["sku"];
+                    }*/
+                    ?>
+                </td>
+            </tr>-->
+            <?php
+                foreach ($_SESSION["cart_item"] as $item){
+                    $cost = $item["quantity"]*$item["price"];
+                    ?>
+                        <tr>
+                            <td><img src="<?php echo $_SESSION["cart_item"]["image"];?>"/></td> 
+                            <td><?php echo $_SESSION["cart_item"]["sku"]; ?></td>
+                            <td style="text-align:right;"> <?php echo $item["quantity"]; ?></td>
+                            <td style="text-align:right;"> <?php echo "$ ".$item["price"]; ?></td>
+                            <td style="text-align:right;"><?php echo "$ ".number_format($cost,2);?></td>
+                            <td style="text-align:center;"><a href="productslist_shoppingcart.php?action=remove&sku=<?php echo $item["sku"]; ?>" class="btnRemoveAction"><img src="images/icon-delet.png" alt="Remove Item"/></a></td>
+                        </tr>
+                        <?php
+                        $total_quantity += $item["quantity"];
+                        $total_cost += ($item["quantity"]*$item["price"]);
+                }
             ?>
 
         <tr>
@@ -141,7 +162,7 @@ switch($_GET["action"]) {
                                 <div class="product-tile-footer">
                                 <div class="product-title"><?php echo $row["name"]; ?></div>
                                 <div class="product-price"><?php echo "$".$row["price"]; ?></div>
-                                <div class="cart-action"><input type="text" class="product-quantity" name="quantity" value="1" size="2"><input type="submit" value="Add to Cart" class="btnAddAction"></div>
+                                <div class="cart-action"><input type="number" class="product-quantity" name="quantity" value="1" size="2"><input type="submit" value="Add to Cart" class="btnAddAction"></div>
                                 </div>
                             </form>
                         </div>
