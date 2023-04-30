@@ -6,13 +6,13 @@ if(!empty($_GET["action"])) {
 switch($_GET["action"]) {
 	case "add":
 		if(!empty($_POST["quantity"])) {
-			$productByCode = $db_handle->runQuery("SELECT * FROM tblproduct WHERE code='" . $_GET["code"] . "'");
-			$itemArray = array($productByCode[0]["code"]=>array('name'=>$productByCode[0]["name"], 'code'=>$productByCode[0]["code"], 'quantity'=>$_POST["quantity"], 'price'=>$productByCode[0]["price"], 'image'=>$productByCode[0]["image"]));
+			$productByCode = $db_handle->runQuery("SELECT * FROM products WHERE sku='" . $_GET["sku"] . "'");
+			$itemArray = array($productByCode[0]["sku"]=>array('name'=>$productByCode[0]["name"], 'sku'=>$productByCode[0]["sku"], 'quantity'=>$_POST["quantity"], 'price'=>$productByCode[0]["price"], 'image'=>$productByCode[0]["image"]));
 			
 			if(!empty($_SESSION["cart_item"])) {
-				if(in_array($productByCode[0]["code"],array_keys($_SESSION["cart_item"]))) {
+				if(in_array($productByCode[0]["sku"],array_keys($_SESSION["cart_item"]))) {
 					foreach($_SESSION["cart_item"] as $k => $v) {
-							if($productByCode[0]["code"] == $k) {
+							if($productByCode[0]["sku"] == $k) {
 								if(empty($_SESSION["cart_item"][$k]["quantity"])) {
 									$_SESSION["cart_item"][$k]["quantity"] = 0;
 								}
@@ -30,7 +30,7 @@ switch($_GET["action"]) {
 	case "remove":
 		if(!empty($_SESSION["cart_item"])) {
 			foreach($_SESSION["cart_item"] as $k => $v) {
-					if($_GET["code"] == $k)
+					if($_GET["sku"] == $k)
 						unset($_SESSION["cart_item"][$k]);				
 					if(empty($_SESSION["cart_item"]))
 						unset($_SESSION["cart_item"]);
@@ -57,7 +57,7 @@ switch($_GET["action"]) {
         <tbody>
             <tr>
                 <th style="text-align:left;">Name</th>
-                <th style="text-align:left;">Code</th>
+                <th style="text-align:left;">SKU</th>
                 <th style="text-align:right" width="5%">Quantity</th>
                 <th style="text-align:right" width="10%">Unit</th>
                 <th style="text-align:right" width="10%">Price</th>
@@ -68,23 +68,22 @@ switch($_GET["action"]) {
             if(isset($_SESSION["cart_item"])){
                 $total_quantity = 0;
                 $total_price = 0;
-            }
 
-            foreach ($_SESSION["cart_item"] as $item){
-                $cost = $item["quantity"]*$item["price"];
-                ?>
-                    <tr>
-                        <td><img src="<?php echo $item["image"];?>"/></td> 
-                        <td><?php echo $item["code"]; ?></td>
-                        <td style="text-align:right;"> <?php echo $item["quantity"]; ?></td>
-                        <td style="text-align:right;"> <?php echo "$ ".$item["price"]; ?></td>
-                        <td style="text-align:right;"><?php echo "$ ".number_format($item_price,2);?></td>
-                        <td style="text-align:center;"><a href="index.php?action=remove&code=<?php echo $item["code"]; ?>" class="btnRemoveAction"><img src="images/icon-delet.png" alt="Remove Item"/></a></td>
-                    </tr>
-                    <?php
-                    $total_quantity += $item["quantity"];
-                    $total_cost += ($item["quantity"]*$item["price"]);
-            }
+                foreach ($_SESSION["cart_item"] as $item){
+                    $cost = $item["quantity"]*$item["price"];
+                    ?>
+                        <tr>
+                            <td><img src="<?php echo $item["image"];?>"/></td> 
+                            <td><?php echo $item["sku"]; ?></td>
+                            <td style="text-align:right;"> <?php echo $item["quantity"]; ?></td>
+                            <td style="text-align:right;"> <?php echo "$ ".$item["price"]; ?></td>
+                            <td style="text-align:right;"><?php echo "$ ".number_format($item_price,2);?></td>
+                            <td style="text-align:center;"><a href="index.php?action=remove&sku=<?php echo $item["sku"]; ?>" class="btnRemoveAction"><img src="images/icon-delet.png" alt="Remove Item"/></a></td>
+                        </tr>
+                        <?php
+                        $total_quantity += $item["quantity"];
+                        $total_cost += ($item["quantity"]*$item["price"]);
+                }
         ?>
 
         <tr>
@@ -94,6 +93,14 @@ switch($_GET["action"]) {
         </tr>
         </tbody>
         </table>
+
+        <?php 
+        } else {
+        ?>
+        <div class="no-records">Your cart is empty.</div>
+        <?php   
+        }
+        ?>
 
         <div id="product-grid">
             <div class="txt-heading">Products We Offer</div>
