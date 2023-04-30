@@ -1,5 +1,7 @@
 <?php
-session_start();
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
 //require_once("dbcontroller.php");
 include_once 'connection.php';
 //$db_handle = new DBController();
@@ -99,8 +101,8 @@ switch($_GET["action"]) {
                 <th style="text-align:left;">Name</th>
                 <th style="text-align:left;">SKU</th>
                 <th style="text-align:right" width="5%">Quantity</th>
-                <th style="text-align:right" width="10%">Unit</th>
-                <th style="text-align:right" width="10%">Price</th>
+                <th style="text-align:right" width="10%">Unit Price</th>
+                <th style="text-align:right" width="10%">Total Cost</th>
                 <th style="text-align:center" width="5%">Remove</th>
             </tr>
 
@@ -115,8 +117,35 @@ switch($_GET["action"]) {
                 </td>
             </tr>-->
             <?php
+
+                $result = mysqli_query($con,"SELECT * FROM shoppingcart");
+                if (mysqli_num_rows($result) > 0) {
+                    while($row = mysqli_fetch_array($result)) {
+            ?>
+                        <tr>
+                            <td><img src="<?php echo $row["image"];?>"/></td> 
+                            <td><?php echo $row["sku"]; ?></td>
+                            <td style="text-align:right;"> <?php echo $row["quantity"]; ?></td>
+                            <td style="text-align:right;"> <?php echo "$ ".$row["price"]; ?></td>
+                            <td style="text-align:right;"><?php echo "$ ".number_format($row["quantity"]*$row["price"],2);?></td>
+                            <td style="text-align:center;">
+                            <a href="deleteProductFromShoppingCart.php" class="btnRemoveAction">
+                                <img src="product-images/icon-delete.png" alt="Remove Item"/>
+                                <?php
+                                    $_SESSION["removedItemName"] = $row["name"];
+                                ?>
+                            </a>
+                            </td>
+                        </tr>
+                        <?php
+                        $total_quantity += $row["quantity"];
+                        $total_cost += ($row["quantity"]*$row["price"]);
+                    }
+                }
+
+                /*
                 foreach ($_SESSION["cart_item"] as $item){
-                    $cost = $item["quantity"]*$item["price"];
+                    $cost = $_SESSION["cart_item"]["quantity"]*$_SESSION["cart_item"]["price"];
                     ?>
                         <tr>
                             <td><img src="<?php echo $_SESSION["cart_item"]["image"];?>"/></td> 
@@ -124,12 +153,12 @@ switch($_GET["action"]) {
                             <td style="text-align:right;"> <?php echo $item["quantity"]; ?></td>
                             <td style="text-align:right;"> <?php echo "$ ".$item["price"]; ?></td>
                             <td style="text-align:right;"><?php echo "$ ".number_format($cost,2);?></td>
-                            <td style="text-align:center;"><a href="productslist_shoppingcart.php?action=remove&sku=<?php echo $item["sku"]; ?>" class="btnRemoveAction"><img src="images/icon-delet.png" alt="Remove Item"/></a></td>
+                            <td style="text-align:center;"><a href="productslist_shoppingcart.php?action=remove&sku=<?php echo $item["sku"]; ?>" class="btnRemoveAction"><img src="product-images/icon-delete.png" alt="Remove Item"/></a></td>
                         </tr>
                         <?php
                         $total_quantity += $item["quantity"];
                         $total_cost += ($item["quantity"]*$item["price"]);
-                }
+                }*/
             ?>
 
         <tr>
@@ -152,17 +181,35 @@ switch($_GET["action"]) {
         <div id="product-grid">
             <div class="txt-heading">Products We Offer</div>
             <?php
-                $result = mysqli_query($con,"SELECT * FROM products ORDER BY id ASC");
+                $result = mysqli_query($con,"SELECT * FROM products");
                 if (mysqli_num_rows($result) > 0) {
                     while($row = mysqli_fetch_array($result)) {
                     ?>
                         <div class="product-item">
-                            <form method="post" action="productslist_shoppingcart.php?action=add&sku=<?php echo $row["sku"];?>">
+                            <!--<form method="post" action="productslist_shoppingcart.php?action=add&sku=<?php /*echo $row["sku"]*/;?>">-->
+                                <form method="post" action="addProductToShoppingCart.php">
                                 <div class="product-image"><img src="<?php echo $row["image"]; ?>"></div>
                                 <div class="product-tile-footer">
-                                <div class="product-title"><?php echo $row["name"]; ?></div>
-                                <div class="product-price"><?php echo "$".$row["price"]; ?></div>
-                                <div class="cart-action"><input type="number" class="product-quantity" name="quantity" value="1" size="2"><input type="submit" value="Add to Cart" class="btnAddAction"></div>
+                                <div class="product-title">
+                                    <?php echo $row["name"]; ?>
+                                </div>
+                                <div class="product-price">
+                                    <?php echo "$".$row["price"]; ?>
+                                </div>
+                                <?php 
+                                    $addedItem = [
+                                        "name" => $row["name"],
+                                        "image" => $row["image"],
+                                        "sku" => $row["sku"],
+                                        "price" => $row["price"],
+                                        "quantity" => 0,
+                                    ];
+                                    $_SESSION["addedItem"] = $addedItem;
+                                ?>
+                                <div class="cart-action">
+                                    <input type="number" class="product-quantity" name="quantity" value="1" size="2">
+                                    <input type="submit" value="Add to Cart" class="btnAddAction">
+                                </div>
                                 </div>
                             </form>
                         </div>
