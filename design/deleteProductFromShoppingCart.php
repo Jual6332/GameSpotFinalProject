@@ -33,5 +33,3 @@ if(mysqli_query($con, $sql)){
 // Close connection
 mysqli_close($con);
 ?>
-
-DELETE FROM Customers WHERE CustomerName='Alfreds Futterkiste';
