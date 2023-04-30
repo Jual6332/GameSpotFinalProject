@@ -55,8 +55,8 @@ switch($_GET["action"]) {
         <meta charset="utf-8">
 		<!-- Title Heading -->
 		<title>Products List and Shopping Cart</title>
-		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
-		<link href="style.css" rel="stylesheet" type="text/css">
+		<!--<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">-->
+		<link href="productslist_shoppingcartstyle.css" rel="stylesheet" type="text/css">
     </head>
     <body>
         <div id="shopping-cart">
@@ -111,6 +111,7 @@ switch($_GET["action"]) {
         <?php   
         }
         ?>
+        </div>
 
         <div id="product-grid">
             <div class="txt-heading">Products We Offer</div>
@@ -118,18 +119,16 @@ switch($_GET["action"]) {
                 $result = mysqli_query($con,"SELECT * FROM products ORDER BY id ASC");
                 if (mysqli_num_rows($result) > 0) {
                     while($row = mysqli_fetch_array($result)) {
-                
-                    
-                    //if (!empty($products_list)){
-                    //    foreach($products_list as $key=>$value){
                     ?>
                         <div class="product-item">
                             <form method="post" action="index.php?action=add&sku=<?php echo $row["sku"];?>">
-                            <div class="product-image"><img src="<?php echo $row["image"]; ?>"></div>
-                            <div class="product-tile-footer">
-                            <div class="product-title"></div><?php echo $row["name"]; ?></div>
-                            <div class="product-price"></div><?php echo "$".$row["price"]; ?></div>
-                            <div class="cart-action"><input type="text" class="product-quantity" name="quantity" value="1" size="2"><input type="submit" value="Add to Cart" class="btnAddAction"></div>
+                                <div class="product-image"><img src="<?php echo $row["image"]; ?>"></div>
+                                <div class="product-tile-footer">
+                                <div class="product-title"><?php echo $row["name"]; ?></div>
+                                <div class="product-price"><?php echo "$".$row["price"]; ?></div>
+                                <div class="cart-action"><input type="text" class="product-quantity" name="quantity" value="1" size="2"><input type="submit" value="Add to Cart" class="btnAddAction"></div>
+                                </div>
+                            </form>
                         </div>
                 <?php
                     }
