@@ -8,7 +8,21 @@ switch($_GET["action"]) {
 	case "add":
 		if(!empty($_POST["quantity"])) {
 			//$productByCode = $db_handle->runQuery("SELECT * FROM products");
-            $productByCode = mysqli_query($con,"SELECT * FROM products");
+            $result = mysqli_query($con,"SELECT * FROM products WHERE sku='" . $_GET["sku"] . "'");
+            if (mysqli_num_rows($result) > 0) {
+                while($row = mysqli_fetch_array($result)) {
+                    foreach($_SESSION["cart_item"] as $k => $v) {
+                        if($row["sku"] == $k) {
+                            if(empty($_SESSION["cart_item"][$k]["quantity"])) {
+                                $_SESSION["cart_item"][$k]["quantity"] = 0;
+                            }
+                            $_SESSION["cart_item"][$k]["quantity"] += $_POST["quantity"];
+                        }
+                    }
+
+                }
+            }
+            /*
             if (mysqli_num_rows($productByCode) == 0) {
                 echo "There are no products in the database.";
             } else {
@@ -30,7 +44,7 @@ switch($_GET["action"]) {
                 } else {
                     $_SESSION["cart_item"] = $itemArray;
                 }
-            }
+            }*/
 		}
 	break;
 	case "remove":
@@ -62,7 +76,7 @@ switch($_GET["action"]) {
         <div id="shopping-cart">
         <div class="txt-heading">Shopping Cart</div>
 
-        <a id="btnEmpty" href="index.php?action=empty">Empty Cart</a>
+        <a id="btnEmpty" href="productslist_shoppingcart.php?action=empty">Empty Cart</a>
         <?php
         if(isset($_SESSION["cart_item"])){
                 $total_quantity = 0;
@@ -89,7 +103,7 @@ switch($_GET["action"]) {
                         <td style="text-align:right;"> <?php echo $item["quantity"]; ?></td>
                         <td style="text-align:right;"> <?php echo "$ ".$item["price"]; ?></td>
                         <td style="text-align:right;"><?php echo "$ ".number_format($item_price,2);?></td>
-                        <td style="text-align:center;"><a href="index.php?action=remove&sku=<?php echo $item["sku"]; ?>" class="btnRemoveAction"><img src="images/icon-delet.png" alt="Remove Item"/></a></td>
+                        <td style="text-align:center;"><a href="productslist_shoppingcart.php?action=remove&sku=<?php echo $item["sku"]; ?>" class="btnRemoveAction"><img src="images/icon-delet.png" alt="Remove Item"/></a></td>
                     </tr>
                     <?php
                     $total_quantity += $item["quantity"];
@@ -122,7 +136,7 @@ switch($_GET["action"]) {
                     while($row = mysqli_fetch_array($result)) {
                     ?>
                         <div class="product-item">
-                            <form method="post" action="index.php?action=add&sku=<?php echo $row["sku"];?>">
+                            <form method="post" action="productslist_shoppingcart.php?action=add&sku=<?php echo $row["sku"];?>">
                                 <div class="product-image"><img src="<?php echo $row["image"]; ?>"></div>
                                 <div class="product-tile-footer">
                                 <div class="product-title"><?php echo $row["name"]; ?></div>
