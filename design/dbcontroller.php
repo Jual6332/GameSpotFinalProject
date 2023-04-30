@@ -2,8 +2,8 @@
 class DBController {
 	private $host = "localhost";
 	private $user = "root";
-	private $password = "test";
-	private $database = "blog_samples";
+	private $password = "";
+	private $database = "gamespotcompany";
 	private $conn;
 	
 	function __construct() {
