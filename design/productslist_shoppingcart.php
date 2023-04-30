@@ -63,6 +63,11 @@ switch($_GET["action"]) {
         <div class="txt-heading">Shopping Cart</div>
 
         <a id="btnEmpty" href="index.php?action=empty">Empty Cart</a>
+        <?php
+        if(isset($_SESSION["cart_item"])){
+                $total_quantity = 0;
+                $total_price = 0;
+        ?>
         <table class="tbl-cart" cellpadding="10" cellspacing="1">
         <tbody>
             <tr>
@@ -75,26 +80,22 @@ switch($_GET["action"]) {
             </tr>
 
         <?php
-            if(isset($_SESSION["cart_item"])){
-                $total_quantity = 0;
-                $total_price = 0;
-
-                foreach ($_SESSION["cart_item"] as $item){
-                    $cost = $item["quantity"]*$item["price"];
-                    ?>
-                        <tr>
-                            <td><img src="<?php echo $item["image"];?>"/></td> 
-                            <td><?php echo $item["sku"]; ?></td>
-                            <td style="text-align:right;"> <?php echo $item["quantity"]; ?></td>
-                            <td style="text-align:right;"> <?php echo "$ ".$item["price"]; ?></td>
-                            <td style="text-align:right;"><?php echo "$ ".number_format($item_price,2);?></td>
-                            <td style="text-align:center;"><a href="index.php?action=remove&sku=<?php echo $item["sku"]; ?>" class="btnRemoveAction"><img src="images/icon-delet.png" alt="Remove Item"/></a></td>
-                        </tr>
-                        <?php
-                        $total_quantity += $item["quantity"];
-                        $total_cost += ($item["quantity"]*$item["price"]);
-                }
-        ?>
+            foreach ($_SESSION["cart_item"] as $item){
+                $cost = $item["quantity"]*$item["price"];
+                ?>
+                    <tr>
+                        <td><img src="<?php echo $item["image"];?>"/></td> 
+                        <td><?php echo $item["sku"]; ?></td>
+                        <td style="text-align:right;"> <?php echo $item["quantity"]; ?></td>
+                        <td style="text-align:right;"> <?php echo "$ ".$item["price"]; ?></td>
+                        <td style="text-align:right;"><?php echo "$ ".number_format($item_price,2);?></td>
+                        <td style="text-align:center;"><a href="index.php?action=remove&sku=<?php echo $item["sku"]; ?>" class="btnRemoveAction"><img src="images/icon-delet.png" alt="Remove Item"/></a></td>
+                    </tr>
+                    <?php
+                    $total_quantity += $item["quantity"];
+                    $total_cost += ($item["quantity"]*$item["price"]);
+            }
+            ?>
 
         <tr>
             <td colspan="2" align="right">Total:</td>
