@@ -1,30 +1,36 @@
 <?php
 session_start();
-require_once("dbcontroller.php");
-$db_handle = new DBController();
+//require_once("dbcontroller.php");
+include_once 'connection.php';
+//$db_handle = new DBController();
 if(!empty($_GET["action"])) {
 switch($_GET["action"]) {
 	case "add":
 		if(!empty($_POST["quantity"])) {
-			$productByCode = $db_handle->runQuery("SELECT * FROM products WHERE sku='" . $_GET["sku"] . "'");
-			$itemArray = array($productByCode[0]["sku"]=>array('name'=>$productByCode[0]["name"], 'sku'=>$productByCode[0]["sku"], 'quantity'=>$_POST["quantity"], 'price'=>$productByCode[0]["price"], 'image'=>$productByCode[0]["image"]));
-			
-			if(!empty($_SESSION["cart_item"])) {
-				if(in_array($productByCode[0]["sku"],array_keys($_SESSION["cart_item"]))) {
-					foreach($_SESSION["cart_item"] as $k => $v) {
-							if($productByCode[0]["sku"] == $k) {
-								if(empty($_SESSION["cart_item"][$k]["quantity"])) {
-									$_SESSION["cart_item"][$k]["quantity"] = 0;
-								}
-								$_SESSION["cart_item"][$k]["quantity"] += $_POST["quantity"];
-							}
-					}
-				} else {
-					$_SESSION["cart_item"] = array_merge($_SESSION["cart_item"],$itemArray);
-				}
-			} else {
-				$_SESSION["cart_item"] = $itemArray;
-			}
+			//$productByCode = $db_handle->runQuery("SELECT * FROM products");
+            $productByCode = mysqli_query($con,"SELECT * FROM products");
+            if (mysqli_num_rows($productByCode) == 0) {
+                echo "There are no products in the database.";
+            } else {
+                $itemArray = array($productByCode[0]["sku"]=>array('name'=>$productByCode[0]["name"], 'sku'=>$productByCode[0]["sku"], 'quantity'=>$_POST["quantity"], 'price'=>$productByCode[0]["price"], 'image'=>$productByCode[0]["image"]));
+                
+                if(!empty($_SESSION["cart_item"])) {
+                    if(in_array($productByCode[0]["sku"],array_keys($_SESSION["cart_item"]))) {
+                        foreach($_SESSION["cart_item"] as $k => $v) {
+                                if($productByCode[0]["sku"] == $k) {
+                                    if(empty($_SESSION["cart_item"][$k]["quantity"])) {
+                                        $_SESSION["cart_item"][$k]["quantity"] = 0;
+                                    }
+                                    $_SESSION["cart_item"][$k]["quantity"] += $_POST["quantity"];
+                                }
+                        }
+                    } else {
+                        $_SESSION["cart_item"] = array_merge($_SESSION["cart_item"],$itemArray);
+                    }
+                } else {
+                    $_SESSION["cart_item"] = $itemArray;
+                }
+            }
 		}
 	break;
 	case "remove":
@@ -53,6 +59,10 @@ switch($_GET["action"]) {
 		<link href="style.css" rel="stylesheet" type="text/css">
     </head>
     <body>
+        <div id="shopping-cart">
+        <div class="txt-heading">Shopping Cart</div>
+
+        <a id="btnEmpty" href="index.php?action=empty">Empty Cart</a>
         <table class="tbl-cart" cellpadding="10" cellspacing="1">
         <tbody>
             <tr>
@@ -105,22 +115,26 @@ switch($_GET["action"]) {
         <div id="product-grid">
             <div class="txt-heading">Products We Offer</div>
             <?php
-                $product_list = $db_handle->runQuery("SELECT * FROM products OREDER BY id ASC");
-                if (!empty($product_list)){
-                    foreach($product_list as $key=>$value){
-                ?>
-                    <div class="product-item">
-                        <form method="post" action="index.php?action=add&sku=<?php echo $product_list[$key]["sku"];?>">
-                        <div class="product-image"><img src="<?php echo $product_array[$key]["image"]; ?>"></div>
-                        <div class="product-tile-footer">
-                        <div class="product-title"></div><?php echo $product_array[$key]["name"]; ?></div>
-                        <div class="product-price"></div><?php echo "$".$product_array[$key]["price"]; ?></div>
-                        <div class="cart-action"><input type="text" class="product-quantity" name="quantity" value="1" size="2"><input type="submit" value="Add to Cart" class="btnAddAction"></div>
-                    </div>
+                $result = mysqli_query($con,"SELECT * FROM products ORDER BY id ASC");
+                if (mysqli_num_rows($result) > 0) {
+                    while($row = mysqli_fetch_array($result)) {
+                
+                    
+                    //if (!empty($products_list)){
+                    //    foreach($products_list as $key=>$value){
+                    ?>
+                        <div class="product-item">
+                            <form method="post" action="index.php?action=add&sku=<?php echo $row["sku"];?>">
+                            <div class="product-image"><img src="<?php echo $row["image"]; ?>"></div>
+                            <div class="product-tile-footer">
+                            <div class="product-title"></div><?php echo $row["name"]; ?></div>
+                            <div class="product-price"></div><?php echo "$".$row["price"]; ?></div>
+                            <div class="cart-action"><input type="text" class="product-quantity" name="quantity" value="1" size="2"><input type="submit" value="Add to Cart" class="btnAddAction"></div>
+                        </div>
                 <?php
                     }
                 }
-                ?>
+            ?>
         </div>
     </body>
 </html>
