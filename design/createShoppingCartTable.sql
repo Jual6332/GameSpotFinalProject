@@ -1,5 +1,5 @@
 --
--- Table structure for table `tblproduct`
+-- Table structure for table `shoppingcart`
 --
 
 CREATE TABLE `shoppingcart` (
@@ -12,6 +12,6 @@ CREATE TABLE `shoppingcart` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `products`
+-- Dumping data for table `shoppingcart`
 --
 
