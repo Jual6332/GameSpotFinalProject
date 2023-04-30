@@ -18,15 +18,15 @@ if($con === false){
     
 // Taking all 5 values from the form data(input)
 $name =  $_SESSION['addedItem']['name'];
-$image = $_SESSION['addedItem']['image'];
 $sku =  $_SESSION['addedItem']['sku'];
+$image = $_SESSION['addedItem']['image'];
 $price = $_SESSION['addedItem']['price'];
 $quantity = $_REQUEST['quantity'];
     
 // Performing insert query execution
 // here our table name is college
 $sql = "INSERT INTO shoppingcart VALUES ('$name',
-    '$image','$sku','$price','$quantity')";
+    '$sku','$image','$price','$quantity')";
     
 if(mysqli_query($con, $sql)){
     //echo "<h3>data stored in a database successfully."
