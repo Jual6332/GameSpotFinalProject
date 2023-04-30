@@ -27,7 +27,7 @@
     </head>
     <?php
         include_once 'connection.php';
-        $result = mysqli_query($con,"SELECT * FROM tasks");
+        $result = mysqli_query($con,"SELECT * FROM reviews");
         if (mysqli_num_rows($result) > 0) {
     ?>
 	<body class="loggedin">
