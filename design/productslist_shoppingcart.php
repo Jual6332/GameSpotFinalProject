@@ -2,9 +2,14 @@
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
-//require_once("dbcontroller.php");
+$addedItem = [
+    "name" => "",
+    "image" => "",
+    "sku" => "",
+    "price" => 0,
+    "quantity" => 0,
+];
 include_once 'connection.php';
-//$db_handle = new DBController();
 if(!empty($_GET["action"])) {
 switch($_GET["action"]) {
 	case "add":
@@ -187,8 +192,10 @@ switch($_GET["action"]) {
                     ?>
                         <div class="product-item">
                             <!--<form method="post" action="productslist_shoppingcart.php?action=add&sku=<?php /*echo $row["sku"]*/;?>">-->
-                                <form method="post" action="addProductToShoppingCart.php">
-                                <div class="product-image"><img src="<?php echo $row["image"]; ?>"></div>
+                            <form method="post" action="addProductToShoppingCart.php">
+                                <div class="product-image">
+                                    <img src="<?php echo $row["image"]; ?>">
+                                </div>
                                 <div class="product-tile-footer">
                                 <div class="product-title">
                                     <?php echo $row["name"]; ?>
@@ -196,17 +203,19 @@ switch($_GET["action"]) {
                                 <div class="product-price">
                                     <?php echo "$".$row["price"]; ?>
                                 </div>
-                                <?php 
-                                    $addedItem = [
-                                        "name" => $row["name"],
-                                        "image" => $row["image"],
-                                        "sku" => $row["sku"],
-                                        "price" => $row["price"],
-                                        "quantity" => 0,
-                                    ];
-                                    $_SESSION["addedItem"] = $addedItem;
-                                ?>
                                 <div class="cart-action">
+                                    <a href="addProductToShoppingCart.php" class="btnRemoveAction">
+                                        <?php
+                                            $addedItem = [
+                                                "name" => $row["name"],
+                                                "image" => $row["image"],
+                                                "sku" => $row["sku"],
+                                                "price" => $row["price"],
+                                                "quantity" => 0,
+                                            ];
+                                            $_SESSION["addedItem"] = $addedItem;
+                                        ?>
+                                    </a>
                                     <input type="number" class="product-quantity" name="quantity" value="1" size="2">
                                     <input type="submit" value="Add to Cart" class="btnAddAction">
                                 </div>
