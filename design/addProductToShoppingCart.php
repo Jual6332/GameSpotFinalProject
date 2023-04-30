@@ -23,10 +23,20 @@ $image = $_SESSION['addedItem']['image'];
 $price = $_SESSION['addedItem']['price'];
 $quantity = $_REQUEST['quantity'];
     
-// Performing insert query execution
-// here our table name is college
-$sql = "INSERT INTO shoppingcart VALUES ('$name',
-    '$sku','$image','$price','$quantity')";
+$result = mysqli_query($con,"SELECT * FROM shoppingcart WHERE name ='" . $_SESSION["addedItem"]["name"] . "'");
+    if (mysqli_num_rows($result) > 0) {
+        while($row = mysqli_fetch_array($result)) {
+            $newQuantity = $_REQUEST['quantity'] + $row['quantity'];
+            $sql = "UPDATE shoppingcart
+            SET quantity='" . $newQuantity . "'
+            WHERE name='" . $_SESSION["addedItem"]["name"] . "'";
+        }
+    } else{
+        // Performing insert query execution
+        // here our table name is college
+        $sql = "INSERT INTO shoppingcart VALUES ('$name',
+            '$sku','$image','$price','$quantity')";
+    }
 
 $_SESSION["addedItem"] = [
 
