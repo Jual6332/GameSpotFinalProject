@@ -9,7 +9,7 @@
 	<body class="loggedin">
 		<nav class="navtop">
 			<div>
-				<h1>TaskHub</h1>
+				<h1>GameSpot</h1>
 				<a href="#"><i class="fas fa-user-circle"></i>Profile</a>
 				<a href="tasks_list.php"><i class="fas fa-user-circle"></i>Tasks List</a>
 				<a href="employee_roster.php"><i class="fas fa-user-circle">Employee Roster</i></a>
