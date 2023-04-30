@@ -3,7 +3,6 @@
 --
 
 CREATE TABLE `shoppingcart` (
-  `id` int(8) NOT NULL,
   `name` varchar(255) NOT NULL,
   `sku` varchar(255) NOT NULL,
   `image` text NOT NULL,
