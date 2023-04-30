@@ -16,42 +16,60 @@ if($con === false){
         . mysqli_connect_error());
 }
     
-// Taking all 5 values from the form data(input)
-$name =  $_SESSION['addedItem']['name'];
-$sku =  $_SESSION['addedItem']['sku'];
-$image = $_SESSION['addedItem']['image'];
-$price = $_SESSION['addedItem']['price'];
+// Taking quantity values from the form data(input)
 $quantity = $_REQUEST['quantity'];
-    
-$result = mysqli_query($con,"SELECT * FROM shoppingcart WHERE name ='" . $_SESSION["addedItem"]["name"] . "'");
+
+// Initialize sql command
+$sql = "";
+   
+// Setup database table query
+$result = mysqli_query($con,"SELECT * FROM shoppingcart WHERE name ='" . $_REQUEST['productName'] . "'");
+if (mysqli_num_rows($result) > 0) {
+    while($row = mysqli_fetch_array($result)) {
+        $newQuantity = $_REQUEST['quantity'] + $row['quantity'];
+        $sql = "UPDATE shoppingcart
+        SET quantity='" . $newQuantity . "'
+        WHERE name='" . $_REQUEST["name"] . "'";
+    }
+} else{
+    $result = mysqli_query($con,"SELECT * FROM products WHERE name ='" . $_REQUEST['productName'] . "'");
     if (mysqli_num_rows($result) > 0) {
         while($row = mysqli_fetch_array($result)) {
-            $newQuantity = $_REQUEST['quantity'] + $row['quantity'];
-            $sql = "UPDATE shoppingcart
-            SET quantity='" . $newQuantity . "'
-            WHERE name='" . $_SESSION["addedItem"]["name"] . "'";
+            // Store locally the database table row values
+            $name =  $row['name'];
+            $sku =  $row['sku'];
+            $image = $row['image'];
+            $price = $row['price'];
+
+            // Performing insert query execution
+            // here our table name is college
+            $sql = "INSERT INTO shoppingcart VALUES ('$name',
+                '$sku','$image','$price','$quantity')";
+
+            if(mysqli_query($con, $sql)){
+                //echo "<h3>data stored in a database successfully."
+                //    . " Please browse your localhost php my admin"
+                //    . " to view the updated data</h3>";
+                include('productslist_shoppingcart.php');
+            } else{
+                echo "ERROR: Hush! Sorry $sql. "
+                    . mysqli_error($con);
+            }
+            // Close connection
+            mysqli_close($con);
         }
-    } else{
-        // Performing insert query execution
-        // here our table name is college
-        $sql = "INSERT INTO shoppingcart VALUES ('$name',
-            '$sku','$image','$price','$quantity')";
     }
-
-$_SESSION["addedItem"] = [
-
-];
-    
-if(mysqli_query($con, $sql)){
-    //echo "<h3>data stored in a database successfully."
-    //    . " Please browse your localhost php my admin"
-    //    . " to view the updated data</h3>";
-    include('productslist_shoppingcart.php');
-} else{
-    echo "ERROR: Hush! Sorry $sql. "
-        . mysqli_error($con);
 }
-    
-// Close connection
-mysqli_close($con);
+
+/*
+$addedItem = [
+    "name" => "",
+    "image" => "",
+    "sku" => "",
+    "price" => 0,
+    "quantity" => 0,
+];
+
+$_SESSION["addedItem"] = $addedItem;
+*/
 ?>
