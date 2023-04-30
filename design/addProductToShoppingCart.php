@@ -26,10 +26,10 @@ $sql = "";
 $result = mysqli_query($con,"SELECT * FROM shoppingcart WHERE name ='" . $_REQUEST['productName'] . "'");
 if (mysqli_num_rows($result) > 0) {
     while($row = mysqli_fetch_array($result)) {
-        $newQuantity = $_REQUEST['quantity'] + $row['quantity'];
+        $newQuantity = $_POST['quantity'] + $row['quantity'];
         $sql = "UPDATE shoppingcart
         SET quantity='" . $newQuantity . "'
-        WHERE name='" . $_REQUEST["name"] . "'";
+        WHERE name='" . $_POST["productname"] . "'";
     }
 } else{
     $result = mysqli_query($con,"SELECT * FROM products WHERE name ='" . $_REQUEST['productName'] . "'");
