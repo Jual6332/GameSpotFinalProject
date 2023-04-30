@@ -39,29 +39,6 @@ switch($_GET["action"]) {
                 }
             }
         }
-            /*
-            if (mysqli_num_rows($productByCode) == 0) {
-                echo "There are no products in the database.";
-            } else {
-                $itemArray = array($productByCode[0]["sku"]=>array('name'=>$productByCode[0]["name"], 'sku'=>$productByCode[0]["sku"], 'quantity'=>$_POST["quantity"], 'price'=>$productByCode[0]["price"], 'image'=>$productByCode[0]["image"]));
-                
-                if(!empty($_SESSION["cart_item"])) {
-                    if(in_array($productByCode[0]["sku"],array_keys($_SESSION["cart_item"]))) {
-                        foreach($_SESSION["cart_item"] as $k => $v) {
-                                if($productByCode[0]["sku"] == $k) {
-                                    if(empty($_SESSION["cart_item"][$k]["quantity"])) {
-                                        $_SESSION["cart_item"][$k]["quantity"] = 0;
-                                    }
-                                    $_SESSION["cart_item"][$k]["quantity"] += $_POST["quantity"];
-                                }
-                        }
-                    } else {
-                        $_SESSION["cart_item"] = array_merge($_SESSION["cart_item"],$itemArray);
-                    }
-                } else {
-                    $_SESSION["cart_item"] = $itemArray;
-                }
-            }*/
 	break;
 	case "remove":
 		if(!empty($_SESSION["cart_item"])) {
@@ -134,10 +111,12 @@ switch($_GET["action"]) {
                             <td style="text-align:right;"> <?php echo "$ ".$row["price"]; ?></td>
                             <td style="text-align:right;"><?php echo "$ ".number_format($row["quantity"]*$row["price"],2);?></td>
                             <td style="text-align:center;">
-                                <a href="deleteProductFromShoppingCart.php" class="btnRemoveAction">
+                                <a href="deleteProductFromShoppingCart.php?delete=<?php echo $row["name"]?>" class="btnRemoveAction">
                                     <img src="product-images/icon-delete.png" alt="Remove Item"/>
                                     <?php
+                                    /*
                                         $_SESSION["removedItemName"] = $row["name"];
+                                    */
                                     ?>
                                 </a>
                             </td>
@@ -174,7 +153,7 @@ switch($_GET["action"]) {
                     while($row = mysqli_fetch_array($result)) {
                     ?>
                         <div class="product-item">
-                            <form method="post" action="addProductToShoppingCart.php">
+                            <form method="post" action="addProductToShoppingCart.php?name">
                                 <div class="product-image">
                                     <img src="<?php echo $row["image"]; ?>">
                                 </div>
