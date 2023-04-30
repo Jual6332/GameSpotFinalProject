@@ -27,6 +27,10 @@ $quantity = $_REQUEST['quantity'];
 // here our table name is college
 $sql = "INSERT INTO shoppingcart VALUES ('$name',
     '$sku','$image','$price','$quantity')";
+
+$_SESSION["addedItem"] = [
+
+];
     
 if(mysqli_query($con, $sql)){
     //echo "<h3>data stored in a database successfully."
