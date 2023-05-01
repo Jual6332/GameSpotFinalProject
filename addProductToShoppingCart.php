@@ -30,6 +30,7 @@ if (mysqli_num_rows($result) > 0) {
         $sql = "UPDATE shoppingcart
         SET quantity='" . $newQuantity . "'
         WHERE name='" . $_POST["productName"] . "'";
+        mysqli_query($con, $sql);
     }
 } else{
     $result = mysqli_query($con,"SELECT * FROM products WHERE name ='" . $_REQUEST['productName'] . "'");
