@@ -29,8 +29,9 @@ if (mysqli_num_rows($result) > 0) {
         $newQuantity = $_POST['quantity'] + $row['quantity'];
         $sql = "UPDATE shoppingcart
         SET quantity='" . $newQuantity . "'
-        WHERE name='" . $_POST["productname"] . "'";
+        WHERE name='" . $_POST["productName"] . "'";
     }
+    include('productslist_shoppingcart.php');
 } else{
     $result = mysqli_query($con,"SELECT * FROM products WHERE name ='" . $_REQUEST['productName'] . "'");
     if (mysqli_num_rows($result) > 0) {
@@ -59,6 +60,7 @@ if (mysqli_num_rows($result) > 0) {
             mysqli_close($con);
         }
     }
+    include('productslist_shoppingcart.php');
 }
 
 /*
