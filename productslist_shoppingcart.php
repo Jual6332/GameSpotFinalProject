@@ -9,7 +9,7 @@ $addedItem = [
     "price" => 0,
     "quantity" => 0,
 ];
-include_once 'connection.php';
+require_once 'connection.php';
 if(!empty($_GET["action"])) {
 switch($_GET["action"]) {
 	case "add":
@@ -99,7 +99,6 @@ switch($_GET["action"]) {
                 </td>
             </tr>-->
             <?php
-
                 $result = mysqli_query($con,"SELECT * FROM shoppingcart");
                 if (mysqli_num_rows($result) > 0) {
                     while($row = mysqli_fetch_array($result)) {
