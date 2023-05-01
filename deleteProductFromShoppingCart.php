@@ -1,7 +1,10 @@
 <?php
 
-session_start();
- 
+if(!isset($_SESSION)) 
+{ 
+    session_start();
+} 
+
 // servername => localhost
 // username => root
 // password => empty
@@ -18,18 +21,22 @@ if($con === false){
     
 // Performing delete query execution
 // here our table name is shoppingcart
-$sql = "DELETE FROM shoppingcart WHERE name='" . $_SESSION["removedItemName"] . "'";
-    
-if(mysqli_query($con, $sql)){
-    //echo "<h3>data stored in a database successfully."
-    //    . " Please browse your localhost php my admin"
-    //    . " to view the updated data</h3>";
-    include('productslist_shoppingcart.php');
-} else{
-    echo "ERROR: Hush! Sorry $sql. "
+if (!empty($_GET["delete"])){
+    $sql = "DELETE FROM shoppingcart WHERE name='" . $_GET["delete"] . "'";   
+    if(mysqli_query($con, $sql)){
+        //echo "<h3>data stored in a database successfully."
+        //    . " Please browse your localhost php my admin"
+        //    . " to view the updated data</h3>";
+        include('productslist_shoppingcart.php');
+    } else{
+        echo "ERROR: Hush! Sorry $sql. "
         . mysqli_error($con);
-}
+    }
     
-// Close connection
-mysqli_close($con);
+    //$removedItem = "";
+    //$_SESSION["removedItemName"] = $removedItem;
+        
+    // Close connection
+    mysqli_close($con);
+}
 ?>
