@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -6,13 +9,16 @@
 		<link href="style.css" rel="stylesheet" type="text/css">
 		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
 	</head>
+	<?php
+		$_SESSION["cart_item"] = [];
+	?>
 	<body class="loggedin">
 		<nav class="navtop">
 			<div>
 				<h1>TaskHub</h1>
 				<a href="#"><i class="fas fa-user-circle"></i>Profile</a>
 				<a href="reviewsList.php"><i class="fas fa-user-circle"></i>Reviews List</a>
-				<a href="employee_roster.php"><i class="fas fa-user-circle">Employee List</i></a>
+				<a href="productslist_shoppingcart.php"><i class="fas fa-user-circle">ProductsList/ShoppingCart</i></a>
 				<a href="logout.php"><i class="fas fa-sign-out-alt"></i>Logout</a>
 			</div>
 		</nav>
