@@ -10,7 +10,7 @@ CREATE TABLE `products` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `products`
+-- Ingesting data for table `products`
 --
 
 INSERT INTO `products` (`name`, `sku`, `image`, `price`) VALUES
@@ -18,3 +18,11 @@ INSERT INTO `products` (`name`, `sku`, `image`, `price`) VALUES
 ('EXP Portable Hard Drive', 'USB02', 'product-images/external-hard-drive.jpg', 800.00),
 ('Luxury Ultra thin Wrist Watch', 'wristWear03', 'product-images/watch.jpg', 300.00),
 ('XP 1155 Intel Core Laptop', 'LPN45', 'product-images/laptop.jpg', 800.00);
+
+--
+-- Ingesting data for table `products`
+--
+
+INSERT INTO `products` (`name`, `sku`, `image`, `price`) VALUES
+('Call of Duty MW2 Remastered', 'xters21', 'product-images/callofdutymw2remastered.jpg', 69.99),
+('Call of Duty Black Ops 3', 'alog82m', 'product-images/callofdutyblackops3.jpg', 22.99);
