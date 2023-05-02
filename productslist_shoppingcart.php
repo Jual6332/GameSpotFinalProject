@@ -150,8 +150,10 @@ switch($_GET["action"]) {
 
         <div id="product-grid">
             <div class="txt-heading">Products We Offer</div>
+            <div class="txt-heading">Video Games</div>
             <?php
-                $result = mysqli_query($con,"SELECT * FROM products");
+                $productType ="game";
+                $result = mysqli_query($con,"SELECT * FROM products where productType='" . $productType . "'");
                 if (mysqli_num_rows($result) > 0) {
                     while($row = mysqli_fetch_array($result)) {
                     ?>
@@ -168,18 +170,39 @@ switch($_GET["action"]) {
                                     <?php echo "$".$row["price"]; ?>
                                 </div>
                                 <div class="cart-action">
-                                    <?php
-                                    /*
-                                        $addedItem = [
-                                            "name" => $row["name"],
-                                            "image" => $row["image"],
-                                            "sku" => $row["sku"],
-                                            "price" => $row["price"],
-                                            "quantity" => 0,
-                                        ];
-                                        $_SESSION["addedItem"] = $addedItem;
-                                        */
-                                    ?>
+                                    <input type="number" class="product-quantity" name="quantity" value="1" size="2">
+                                    <input type="submit" value="Add to Cart" class="btnAddAction">
+                                </div>
+                            </form>
+                        </div>
+                <?php
+                    }
+                }
+            ?>
+        </div>
+        <br/>
+        <div class="clear"></div>
+        <div id="product-grid">
+            <div class="txt-heading">Electronics</div>
+            <?php
+                $productType ="electronics";
+                $result = mysqli_query($con,"SELECT * FROM products where productType='" . $productType . "'");
+                if (mysqli_num_rows($result) > 0) {
+                    while($row = mysqli_fetch_array($result)) {
+                    ?>
+                        <div class="product-item">
+                            <form method="post" action="addProductToShoppingCart.php?name">
+                                <div class="product-image">
+                                    <img src="<?php echo $row["image"]; ?>">
+                                </div>
+                                <div class="product-tile-footer"></div>
+                                <!--<div class="product-title">-->
+                                    <input readonly type="text" name="productName" value="<?php echo $row["name"]; ?>"><br><br>
+                                <!--</div>-->
+                                <div class="product-price">
+                                    <?php echo "$".$row["price"]; ?>
+                                </div>
+                                <div class="cart-action">
                                     <input type="number" class="product-quantity" name="quantity" value="1" size="2">
                                     <input type="submit" value="Add to Cart" class="btnAddAction">
                                 </div>

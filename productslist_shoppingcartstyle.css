@@ -1,3 +1,7 @@
+.clear {
+    clear: both;
+}
+
 body {
 	font-family: Arial;
 	color: #211a1a;
@@ -9,7 +13,10 @@ body {
 }
 
 #product-grid {
+	/*width: 80%;*/
+	display: block;
 	margin: 40px;
+	margin-bottom: 10px;
 }
 
 #shopping-cart table {
@@ -51,6 +58,7 @@ body {
 }
 
 #product-grid .txt-heading {
+	display: block;
 	margin-bottom: 18px;
 }
 
