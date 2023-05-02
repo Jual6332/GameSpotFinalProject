@@ -80,12 +80,13 @@ switch($_GET["action"]) {
         <table class="tbl-cart" cellpadding="10" cellspacing="1">
         <tbody>
             <tr>
-                <th style="text-align:left;">Name</th>
+                <th style="text-align:left;">Game</th>
+                <th style="text-align:left;">Title</th>
                 <th style="text-align:left;">SKU</th>
-                <th style="text-align:right" width="5%">Quantity</th>
-                <th style="text-align:right" width="10%">Unit Price</th>
-                <th style="text-align:right" width="10%">Total Cost</th>
-                <th style="text-align:center" width="5%">Remove</th>
+                <th style="text-align:right;" width="5%">Quantity</th>
+                <th style="text-align:right;" width="10%">Unit Price</th>
+                <th style="text-align:right;" width="10%">Total Cost</th>
+                <th style="text-align:center;" width="5%">Remove</th>
             </tr>
 
             <!--
@@ -105,6 +106,7 @@ switch($_GET["action"]) {
             ?>
                         <tr>
                             <td><img src="<?php echo $row["image"];?>"/></td> 
+                            <td><?php echo $row["name"]; ?></td>
                             <td><?php echo $row["sku"]; ?></td>
                             <td style="text-align:right;"> <?php echo $row["quantity"]; ?></td>
                             <td style="text-align:right;"> <?php echo "$ ".$row["price"]; ?></td>
@@ -128,7 +130,9 @@ switch($_GET["action"]) {
             ?>
 
         <tr>
-            <td colspan="2" align="right">Total:</td>
+            <!-- Bug fix: -->
+            <!-- Had to span the columns to column 3 for the Total: label to sit under the correct header. -->
+            <td colspan="3" align="right">Total:</td>
             <td align="right"><?php echo $total_quantity; ?></td>
             <td align="right" colspan="2"><strong><?php echo "$ ".number_format($total_cost,2); ?></strong></td>
         </tr>
