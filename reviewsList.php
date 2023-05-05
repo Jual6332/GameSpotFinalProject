@@ -34,11 +34,11 @@
 		<nav class="navtop">
 			<div>
 				<h1>TaskHub</h1>
-				<a href="profile.php"><i class="fas fa-user-circle"></i>Profile</a>
-				<a href="#"><i class="fas fa-user-circle"></i>Reviews List</a>
-                <a href="productslist_shoppingcart.php"><i class="fas fa-user-circle">ProductsList/ShoppingCart</i></a>
-				<a href="employee_roster.php"><i class="fas fa-user-circle"></i>Employee Roster</a>
-				<a href="logout.php"><i class="fas fa-sign-out-alt"></i>Logout</a>
+				<a href="profile.php"></i>Profile</a>
+				<a href="#"></i>Reviews List</a>
+                <a href="productslist_shoppingcart.php">ProductsList/ShoppingCart</i></a>
+				<a href="employee_roster.php"></i>Employee Roster</a>
+				<a href="logout.php"></i>Logout</a>
 			</div>
 		</nav>
 	</body>
@@ -74,7 +74,7 @@
         <td><?php echo $row["reviewType"]; ?></td>
         <td><?php echo $row["rating"]; ?></td>
         <td>
-            <a href="deleteProductFromShoppingCart.php?delete=<?php echo $row["name"]?>" class="btnRemoveAction">
+            <a href="deleteReviewFromReviewsList.php?delete=<?php echo $row["name"]?>" class="btnRemoveAction">
                 <img src="product-images/icon-delete.png" alt="Remove Item"/>
             </a>
         </td>
