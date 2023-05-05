@@ -21,7 +21,7 @@
                     <form action="create2.php" method="post">
                         <div class="form-group">
                             <label>Review Title</label>
-                            <input type="text" name="title" class="form-control <?php echo (!empty($name_err)) ? 'is-invalid' : ''; ?>" value="<?php echo "Review Title"; ?>">
+                            <input type="text" name="title" class="form-control <?php echo (!empty($name_err)) ? 'is-invalid' : ''; ?>" placeholder="<?php echo "Review Title"; ?>">
                             <span class="invalid-feedback"><?php echo $name_err;?></span>
                         </div>
                         <div class="form-group">
