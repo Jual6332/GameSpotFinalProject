@@ -67,7 +67,7 @@ switch($_GET["action"]) {
 		<!--<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">-->
 		<link href="productslist_shoppingcartstyle.css" rel="stylesheet" type="text/css">
         <!--<link href="style.css" rel="stylesheet" type="text/css">-->
-		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
+		<!--<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">-->
     </head>
     <body>
 		<nav class="navtop">
