@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Create Record</title>
+    <title>Create Review Record</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
         .wrapper{
@@ -16,7 +16,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-12">
-                    <h2 class="mt-5">Create Task Record</h2>
+                    <h2 class="mt-5">Create Review Record</h2>
                     <p>Please fill this form and submit to add task record to the database.</p>
                     <form action="create2.php" method="post">
                         <div class="form-group">
