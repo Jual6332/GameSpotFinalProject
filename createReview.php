@@ -26,22 +26,22 @@
                         </div>
                         <div class="form-group">
                             <label>Your Name</label>
-                            <input type="text" name="name" class="form-control <?php echo (!empty($taskee_err)) ? 'is-invalid' : ''; ?>" value="<?php echo "Your name"; ?>">
+                            <input type="text" name="name" class="form-control <?php echo (!empty($taskee_err)) ? 'is-invalid' : ''; ?>" placeholder="<?php echo "Your name"; ?>">
                             <span class="invalid-feedback"><?php echo $taskee_err;?></span>
                         </div>
                         <div class="form-group">
                             <label>Review Description</label>
-                            <textarea name="description" class="form-control <?php echo (!empty($description_err)) ? 'is-invalid' : ''; ?>"><?php echo "Review Description"; ?></textarea>
+                            <input name="description" class="form-control <?php echo (!empty($description_err)) ? 'is-invalid' : ''; ?>" placeholder="<?php echo "Review Description"; ?>">
                             <span class="invalid-feedback"><?php echo $description_err;?></span>
                         </div>
                         <div class="form-group">
                             <label>Review Type</label>
-                            <input type="text" name="reviewType" class="form-control <?php echo (!empty($manager_err)) ? 'is-invalid' : ''; ?>" value="<?php echo "Review Type"; ?>">
+                            <input type="text" name="reviewType" class="form-control <?php echo (!empty($manager_err)) ? 'is-invalid' : ''; ?>" placeholder="<?php echo "Review Type"; ?>">
                             <span class="invalid-feedback"><?php echo $manager_err;?></span>
                         </div>
                         <div class="form-group">
                             <label>Rating (out of 10)</label>
-                            <input type="text" name="rating" class="form-control <?php echo (!empty($performance_err)) ? 'is-invalid' : ''; ?>" value="<?php echo "Rating (out of 10)"; ?>">
+                            <input type="text" name="rating" class="form-control <?php echo (!empty($performance_err)) ? 'is-invalid' : ''; ?>" placeholder="<?php echo "Rating (out of 10)"; ?>">
                             <span class="invalid-feedback"><?php echo $performance_err;?></span>
                         </div>
                         <input type="submit" class="btn btn-primary" value="Submit">
