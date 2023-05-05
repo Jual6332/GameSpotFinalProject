@@ -66,8 +66,19 @@ switch($_GET["action"]) {
 		<title>Products List and Shopping Cart</title>
 		<!--<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">-->
 		<link href="productslist_shoppingcartstyle.css" rel="stylesheet" type="text/css">
+        <!--<link href="style.css" rel="stylesheet" type="text/css">-->
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
     </head>
     <body>
+		<nav class="navtop">
+			<div>
+				<h1>TaskHub</h1>
+				<a href="profile.php"><i class="fas fa-user-circle"></i>Profile</a>
+				<a href="reviewsList.php"><i class="fas fa-user-circle"></i>Reviews List</a>
+				<a href="#"><i class="fas fa-user-circle">ProductsList/ShoppingCart</i></a>
+				<a href="logout.php"><i class="fas fa-sign-out-alt"></i>Logout</a>
+			</div>
+		</nav>
         <div id="shopping-cart">
         <div class="txt-heading">Shopping Cart</div>
 
