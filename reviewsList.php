@@ -9,7 +9,7 @@
         <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
+		<!--<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">-->
         <style>
             .wrapper{
                 width: 600px;
@@ -46,7 +46,7 @@
         <h2>Reviews List!</h2>
         <div class="mt-5 mb-3 clearfix">
             <h2 class="pull-left">Review Details</h2>
-            <a href="create.php" class="btn btn-success pull-right"><i class="fa fa-plus"></i> Add New Employee</a>
+            <a href="create.php" class="btn btn-success pull-right"><i class="fa fa-plus"></i> Add New Review</a>
         
         <?php
         $i=0;
@@ -59,6 +59,7 @@
         echo "<th>Description</th>";
         echo "<th>Review Tyoe</th>";
         echo "<th>Rating</th>";
+        echo "<th>Remove</th>";
         echo "</tr>";
         echo "</thead>";
         echo "<tbody>";
@@ -72,6 +73,11 @@
         <td><?php echo $row["description"]; ?></td>
         <td><?php echo $row["reviewType"]; ?></td>
         <td><?php echo $row["rating"]; ?></td>
+        <td>
+            <a href="deleteProductFromShoppingCart.php?delete=<?php echo $row["name"]?>" class="btnRemoveAction">
+                <img src="product-images/icon-delete.png" alt="Remove Item"/>
+            </a>
+        </td>
         </tr>
         <?php
         $i++;
