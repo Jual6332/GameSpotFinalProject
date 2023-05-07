@@ -26,22 +26,17 @@ session_start();
 	<div class="content">
         <h2>Welcome back!</h2>
         <div>
-            <p>Listed below are the many benefits of TaskHub:</p>
+            <p>Listed below are the many perks of shopping with GameSpot:</p>
             <table>
                 <tr>
-                    <td>Easy of communication:</td>
+                    <td>Buy products online!</td>
 					<!--<td>This website allows users to create, assign, view,  modify, and delete tasks that pertain to projects such as those for industry professionals completing a work project.</td>-->
-					<td>Users can assign tasks to other coworkers which allows for increase communication between workers. Task descriptions and task assignment grades communicate a standard message of performance in a team environment. This makes life easier for assessing raises and bonuses which are always based on recorded performance.</td>
+					<td>GameSpot now has a state-of-the-art Shopping Cart feature for shopping for GameSpot products. You can shop for electronics and video games, all online! The experience of shopping with GameSpot, now online.</td>
 				</tr>
 				<tr>
-					<td>Robust front-end:</td>
-					<td>Bootstrap is a front-end framework being utilized in the TaskHub project which allows for sleek buttons, consistent color schemes, and other asthetic features for web development. </td>
+					<td>Some of the best prices in town:</td>
+					<td>We offer great prices on all of our products and have specials that run once a month. Shop with GameSpot today!</td>
                 </tr>
-                <!--
-                <tr>
-                    <td>Password:</td>
-                    <td><?//=$password?></td>
-                </tr>-->
             </table>
         </div>
     </div>
