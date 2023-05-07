@@ -37,7 +37,7 @@
 				<a href="profile.php"></i>Profile</a>
 				<a href="#"></i>Reviews List</a>
                 <a href="productslist_shoppingcart.php">ProductsList/ShoppingCart</i></a>
-				<a href="employee_roster.php"></i>Employee Roster</a>
+				<!--<a href="employee_roster.php"></i>Employee Roster</a>-->
 				<a href="logout.php"></i>Logout</a>
 			</div>
 		</nav>
