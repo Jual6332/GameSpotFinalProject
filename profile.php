@@ -26,7 +26,7 @@ session_start();
 	<div class="content">
         <h2>Welcome back!</h2>
         <div>
-            <p>Listed below are the many perks of shopping with GameSpot:</p>
+            <p>Listed below are some of the perks of shopping with GameSpot:</p>
             <table>
                 <tr>
                     <td>Buy products online!</td>
