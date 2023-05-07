@@ -97,6 +97,7 @@ switch($_GET["action"]) {
                 <th style="text-align:right;" width="5%">Quantity</th>
                 <th style="text-align:right;" width="10%">Unit Price</th>
                 <th style="text-align:right;" width="10%">Total Cost</th>
+                <th style="text-align:center;" width="10%">Purchase</th>
                 <th style="text-align:center;" width="5%">Remove</th>
             </tr>
 
@@ -122,6 +123,9 @@ switch($_GET["action"]) {
                             <td style="text-align:right;"> <?php echo $row["quantity"]; ?></td>
                             <td style="text-align:right;"> <?php echo "$ ".$row["price"]; ?></td>
                             <td style="text-align:right;"><?php echo "$ ".number_format($row["quantity"]*$row["price"],2);?></td>
+                            <td style="text-align:center;">
+                                <a id="btnEmpty" href="deleteProductFromShoppingCart.php?delete=<?php echo $row["name"]?>">Buy Item!</a>
+                            </td>
                             <td style="text-align:center;">
                                 <a href="deleteProductFromShoppingCart.php?delete=<?php echo $row["name"]?>" class="btnRemoveAction">
                                     <img src="product-images/icon-delete.png" alt="Remove Item"/>
