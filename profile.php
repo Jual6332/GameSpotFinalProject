@@ -37,6 +37,10 @@ session_start();
 					<td>Some of the best prices in town:</td>
 					<td>We offer great prices on all of our products and have specials that run once a month. Shop with GameSpot today!</td>
                 </tr>
+				<tr>
+					<td>Great Customer Service</td>
+					<td>We offer great customer service - both in-person and over the phone. On the Reviews List page of our website you can create a review to share your experience shopping from GameSpot. SHare what we did well, or what we can work on. We will get to your comments right away!</td>
+				</tr>
             </table>
         </div>
     </div>
