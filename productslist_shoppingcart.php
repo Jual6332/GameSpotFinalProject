@@ -82,7 +82,7 @@ switch($_GET["action"]) {
         <div id="shopping-cart">
         <div class="txt-heading">Shopping Cart</div>
 
-        <a id="btnEmpty" href="productslist_shoppingcart.php?action=empty">Empty Cart</a>
+        <!--<a id="btnEmpty" href="productslist_shoppingcart.php?action=empty">Empty Cart</a>-->
         <?php
         if(isset($_SESSION["cart_item"])){
                 $total_quantity = 0;
