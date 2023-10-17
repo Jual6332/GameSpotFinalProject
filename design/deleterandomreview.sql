@@ -1,0 +1,1 @@
+DELETE FROM reviews WHERE rating='0.00'
