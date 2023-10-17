@@ -57,7 +57,7 @@
         echo "<th>Title</th>";
         echo "<th>Reviewer's Name</th>";
         echo "<th>Description</th>";
-        echo "<th>Review Tyoe</th>";
+        echo "<th>Review Type</th>";
         echo "<th>Rating</th>";
         echo "<th>Remove</th>";
         echo "</tr>";
