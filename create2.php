@@ -9,7 +9,7 @@
 require_once "connection.php";
     
 // Check connection
-if($conn === false){
+if($con === false){
     die("ERROR: Could not connect. "
         . mysqli_connect_error());
 }
@@ -18,7 +18,7 @@ if($conn === false){
 $title =  $_REQUEST['title'];
 $name = $_REQUEST['name'];
 $description =  $_REQUEST['description'];
-$manager = $_REQUEST['reviewTyepe'];
+$manager = $_REQUEST['reviewType'];
 $rating = $_REQUEST['rating'];
     
 // Performing insert query execution
