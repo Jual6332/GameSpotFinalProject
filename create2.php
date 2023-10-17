@@ -18,7 +18,7 @@ if($con === false){
 $title =  $_REQUEST['title'];
 $name = $_REQUEST['name'];
 $description =  $_REQUEST['description'];
-$manager = $_REQUEST['reviewType'];
+$reviewType = $_REQUEST['reviewType'];
 $rating = $_REQUEST['rating'];
     
 // Performing insert query execution
